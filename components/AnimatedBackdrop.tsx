@@ -1,6 +1,7 @@
-'use client';
+﻿'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const orbBase = 'fixed -z-10 rounded-full blur-3xl pointer-events-none';
 
@@ -12,20 +13,62 @@ const sprayParticles = [
   { left: '82%', bottom: '12%', size: 4, delay: 0.3, duration: 5.9, drift: -22, color: 'rgba(254,240,138,0.82)' },
   { left: '86%', bottom: '10%', size: 5, delay: 0.9, duration: 6.4, drift: -32, color: 'rgba(191,219,254,0.78)' },
   { left: '90%', bottom: '11%', size: 3, delay: 1.4, duration: 5.4, drift: -17, color: 'rgba(167,243,208,0.8)' },
-  { left: '93%', bottom: '10%', size: 4, delay: 2.1, duration: 6.8, drift: -27, color: 'rgba(254,202,202,0.8)' },
-  { left: '28%', bottom: '14%', size: 3, delay: 0.4, duration: 7.2, drift: 16, color: 'rgba(254,240,138,0.8)' },
-  { left: '34%', bottom: '13%', size: 2, delay: 1.2, duration: 6.9, drift: 12, color: 'rgba(191,219,254,0.75)' },
-  { left: '66%', bottom: '13%', size: 3, delay: 0.7, duration: 7, drift: -14, color: 'rgba(167,243,208,0.78)' },
-  { left: '72%', bottom: '14%', size: 2, delay: 1.8, duration: 6.7, drift: -12, color: 'rgba(254,202,202,0.75)' }
+  { left: '93%', bottom: '10%', size: 4, delay: 2.1, duration: 6.8, drift: -27, color: 'rgba(254,202,202,0.8)' }
 ];
 
+function StaticBackdrop() {
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_15%,rgba(250,204,21,0.16),transparent_35%),radial-gradient(circle_at_85%_10%,rgba(59,130,246,0.16),transparent_32%),radial-gradient(circle_at_50%_88%,rgba(22,163,74,0.1),transparent_38%),radial-gradient(circle_at_65%_62%,rgba(220,38,38,0.08),transparent_42%)]" />
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="none" className="absolute inset-0 h-full w-full opacity-45">
+        <defs>
+          <linearGradient id="staticWaveA" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#FACC15" stopOpacity="0" />
+            <stop offset="30%" stopColor="#22C55E" stopOpacity="0.65" />
+            <stop offset="70%" stopColor="#3B82F6" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#EF4444" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M-60 540 C 80 500, 170 610, 320 550 C 470 485, 570 620, 730 545 C 900 468, 1020 608, 1180 538 C 1310 482, 1400 528, 1510 548"
+          stroke="url(#staticWaveA)"
+          strokeWidth="3"
+          fill="none"
+        />
+        <path
+          d="M-40 575 C 110 620, 220 470, 375 550 C 510 618, 645 470, 805 560 C 965 650, 1095 482, 1260 570 C 1360 620, 1450 600, 1520 578"
+          stroke="url(#staticWaveA)"
+          strokeWidth="2"
+          fill="none"
+          opacity="0.7"
+        />
+      </svg>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,transparent_52%,rgba(2,6,23,0.45)_100%)]" />
+    </div>
+  );
+}
+
 export default function AnimatedBackdrop() {
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 900px)');
+    const onChange = () => setIsMobile(media.matches);
+    onChange();
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
+  }, []);
+
+  if (prefersReducedMotion || isMobile) {
+    return <StaticBackdrop />;
+  }
+
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_15%,rgba(250,204,21,0.18),transparent_35%),radial-gradient(circle_at_85%_10%,rgba(59,130,246,0.18),transparent_32%),radial-gradient(circle_at_50%_88%,rgba(22,163,74,0.12),transparent_38%),radial-gradient(circle_at_65%_62%,rgba(220,38,38,0.1),transparent_42%)]" />
       <div className="aurora-grid absolute inset-0 opacity-25" />
 
-      {/* Brainwave lines */}
       <motion.svg
         viewBox="0 0 1440 900"
         preserveAspectRatio="none"
@@ -77,19 +120,8 @@ export default function AnimatedBackdrop() {
           animate={{ pathLength: [0.15, 1, 0.15], opacity: [0.2, 0.75, 0.2] }}
           transition={{ duration: 8.2, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
         />
-
-        <motion.path
-          d="M-80 500 C 60 450, 160 560, 300 510 C 470 448, 580 560, 730 498 C 900 430, 1010 560, 1180 492 C 1310 438, 1420 502, 1510 520"
-          stroke="url(#brainWaveA)"
-          strokeWidth="1.8"
-          fill="none"
-          filter="url(#waveGlow)"
-          animate={{ pathLength: [0.12, 0.9, 0.12], opacity: [0.15, 0.5, 0.15] }}
-          transition={{ duration: 10.8, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
-        />
       </motion.svg>
 
-      {/* Perfume spray plumes */}
       <motion.div
         className="absolute bottom-[6%] left-[4%] h-[36vh] w-[35vw] rounded-full bg-[radial-gradient(ellipse_at_bottom_left,rgba(250,204,21,0.38),rgba(22,163,74,0.16)_42%,transparent_78%)] blur-2xl"
         animate={{ scale: [0.96, 1.06, 0.96], opacity: [0.35, 0.58, 0.35] }}
@@ -144,18 +176,6 @@ export default function AnimatedBackdrop() {
         className={`${orbBase} right-[8%] top-[28%] h-52 w-52 bg-green-400/20`}
         animate={{ y: [0, 26, 0], x: [0, -18, 0] }}
         transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      <motion.div
-        className={`${orbBase} bottom-[8%] left-[35%] h-56 w-56 bg-red-400/15`}
-        animate={{ y: [0, -20, 0], x: [0, -24, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      <motion.div
-        className={`${orbBase} bottom-[20%] right-[32%] h-52 w-52 bg-blue-400/15`}
-        animate={{ y: [0, -20, 0], x: [0, -24, 0] }}
-        transition={{ duration: 12.8, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
       />
 
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,transparent_52%,rgba(2,6,23,0.45)_100%)]" />

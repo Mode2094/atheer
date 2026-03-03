@@ -2,6 +2,9 @@
 import { Tajawal } from 'next/font/google';
 import './globals.css';
 
+const isProd = process.env.NODE_ENV === 'production';
+const siteUrl = isProd ? 'https://mode2094.github.io/atheer' : 'http://localhost:3000';
+
 const tajawal = Tajawal({
   subsets: ['arabic'],
   display: 'swap',
@@ -9,22 +12,15 @@ const tajawal = Tajawal({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://atheer.ai'),
+  metadataBase: new URL(`${siteUrl}/`),
   title: 'أثير | نظام توصية عطور ذكي لمتاجر المستقبل',
   description:
     'أثير منصة عربية متقدمة لتوصية العطور، تمنح متاجر العطور تجربة عميل أكثر دقة وفخامة وتعزز المبيعات والولاء.',
-  keywords: [
-    'أثير',
-    'توصية عطور',
-    'ذكاء اصطناعي',
-    'متاجر العطور',
-    'تقنية العطور'
-  ],
+  keywords: ['أثير', 'توصية عطور', 'ذكاء اصطناعي', 'متاجر العطور', 'تقنية العطور'],
   openGraph: {
     title: 'أثير | نظام توصية عطور ذكي',
-    description:
-      'تقنية متقدمة تساعد متاجر العطور على تقديم توصيات دقيقة وتجربة عميل استثنائية.',
-    url: 'https://atheer.ai',
+    description: 'تقنية متقدمة تساعد متاجر العطور على تقديم توصيات دقيقة وتجربة عميل استثنائية.',
+    url: siteUrl,
     siteName: 'أثير',
     locale: 'ar_SA',
     type: 'website'
@@ -32,13 +28,12 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'أثير | نظام توصية عطور ذكي',
-    description:
-      'حل عربي فاخر لمتاجر العطور يعتمد على ذكاء اصطناعي متقدم لتوصيات أكثر دقة.'
+    description: 'حل عربي فاخر لمتاجر العطور يعتمد على ذكاء اصطناعي متقدم لتوصيات أكثر دقة.'
   },
   icons: {
-    icon: '/icon.jpg',
-    shortcut: '/icon.jpg',
-    apple: '/apple-icon.jpg'
+    icon: `${siteUrl}/icon.jpg`,
+    shortcut: `${siteUrl}/icon.jpg`,
+    apple: `${siteUrl}/apple-icon.jpg`
   },
   robots: {
     index: true,

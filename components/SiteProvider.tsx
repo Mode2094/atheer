@@ -16,14 +16,11 @@ type SiteContextValue = {
 const SiteContext = createContext<SiteContextValue | null>(null);
 
 function SiteProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('ar');
-
-  useEffect(() => {
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window === 'undefined') return 'ar';
     const saved = localStorage.getItem('atheer_locale');
-    if (saved === 'ar' || saved === 'en') {
-      setLocaleState(saved);
-    }
-  }, []);
+    return saved === 'ar' || saved === 'en' ? saved : 'ar';
+  });
 
   useEffect(() => {
     localStorage.setItem('atheer_locale', locale);
@@ -45,7 +42,7 @@ function SiteProvider({ children }: { children: React.ReactNode }) {
   return (
     <SiteContext.Provider value={value}>
       <AnimatedBackdrop />
-      <div dir={value.isArabic ? 'rtl' : 'ltr'} className="relative z-10 transition-all duration-500">
+      <div dir={value.isArabic ? 'rtl' : 'ltr'} className="relative z-10">
         {children}
       </div>
     </SiteContext.Provider>
