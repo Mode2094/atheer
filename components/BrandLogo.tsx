@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useSiteLocale } from '@/components/SiteProvider';
+import { withBasePath } from '@/lib/with-base-path';
 
 type BrandLogoProps = {
   href?: string;
@@ -32,7 +33,7 @@ export default function BrandLogo({
       {!imageError && (
         <span className={`relative overflow-hidden rounded-xl border border-white/20 bg-white/5 ${sizeClasses[size]}`}>
           <Image
-            src="/images/atheer-logo.jpg"
+            src={withBasePath('/images/atheer-logo.jpg')}
             alt={content.brand}
             fill
             sizes="56px"

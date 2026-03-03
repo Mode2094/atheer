@@ -1,7 +1,8 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { withBasePath } from '@/lib/with-base-path';
 
 const stats = [
   { value: '95%', label: 'نسبة توافق مرتفعة بين التوصية النهائية وتفضيل العميل الفعلي' },
@@ -28,7 +29,7 @@ export default function InsightsSection() {
           viewport={{ once: true }}
           className="mx-auto mb-10 max-w-4xl text-center text-lg text-white/75"
         >
-          العلاقة بين الرائحة والعاطفة عميقة جدًا، ولذلك أصبح التوجيه الذكي في المتجر عنصرًا حاسمًا في رفع رضا العميل وتسريع قرار الشراء. بدلاً من إرباك العميل بكثرة الخيارات، تُقدَّم له تجربة شخصية دقيقة ومباشرة.
+          العلاقة بين الرائحة والعاطفة عميقة جداً، ولذلك أصبح التوجيه الذكي في المتجر عنصراً حاسماً في رفع رضا العميل وتسريع قرار الشراء. بدلاً من إرباك العميل بكثرة الخيارات، تُقدَّم له تجربة شخصية دقيقة ومباشرة.
         </motion.p>
 
         <div className="grid gap-4 md:grid-cols-3">
@@ -56,7 +57,7 @@ export default function InsightsSection() {
           <div className="grid grid-cols-2 gap-4">
             <div className="glass relative h-40 overflow-hidden rounded-2xl">
               <Image
-                src="/images/atheer-logo.jpg"
+                src={withBasePath('/images/atheer-logo.jpg')}
                 alt="شعار أثير"
                 fill
                 loading="lazy"
@@ -65,7 +66,7 @@ export default function InsightsSection() {
             </div>
             <div className="glass relative h-40 overflow-hidden rounded-2xl">
               <Image
-                src="/images/perfume-luxury.png"
+                src={withBasePath('/images/perfume-luxury.png')}
                 alt="تجربة عطور فاخرة"
                 fill
                 loading="lazy"

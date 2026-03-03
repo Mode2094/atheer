@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Cpu, Layers, Shield, WandSparkles } from 'lucide-react';
 import Image from 'next/image';
 import { useSiteLocale } from '@/components/SiteProvider';
+import { withBasePath } from '@/lib/with-base-path';
 
 const icons = [Cpu, Layers, Shield, WandSparkles];
 
@@ -33,7 +34,7 @@ export default function Features() {
           >
             <div className="absolute -inset-5 -z-10 rounded-[2rem] bg-cyan-400/20 blur-3xl" />
             <Image
-              src="/images/features-brain-bottle.jpg"
+              src={withBasePath('/images/features-brain-bottle.jpg')}
               alt={content.features.title}
               width={800}
               height={1280}

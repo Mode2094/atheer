@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
@@ -6,10 +6,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useSiteLocale } from '@/components/SiteProvider';
+import { withBasePath } from '@/lib/with-base-path';
 
 export default function Hero() {
   const { content, isArabic } = useSiteLocale();
-  const [imageSrc, setImageSrc] = useState('/images/hero-luxury.jpg');
+  const [imageSrc, setImageSrc] = useState(withBasePath('/images/hero-luxury.jpg'));
 
   return (
     <section id="home" className="relative pt-32 sm:pt-40">
@@ -70,7 +71,7 @@ export default function Hero() {
                 width={800}
                 height={1200}
                 priority
-                onError={() => setImageSrc('/images/brain-abstract.png')}
+                onError={() => setImageSrc(withBasePath('/images/brain-abstract.png'))}
                 className="h-[30rem] w-full rounded-3xl border border-white/10 object-cover object-center shadow-glow sm:h-[34rem]"
               />
             </motion.div>

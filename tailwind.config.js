@@ -1,4 +1,6 @@
-﻿/** @type {import('tailwindcss').Config} */
+﻿const basePath = process.env.NODE_ENV === 'production' ? '/atheer' : '';
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -13,7 +15,7 @@ module.exports = {
         glow: '0 0 45px rgba(104, 168, 255, 0.35)'
       },
       backgroundImage: {
-        wave: "url('/images/wave-bg.svg')"
+        wave: `url('${basePath}/images/wave-bg.svg')`
       }
     }
   },
