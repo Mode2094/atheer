@@ -121,7 +121,8 @@ export const siteContent: Record<Locale, SiteContent> = {
         'أثير هو نظام ذكي يعيد تعريف تجربة اختيار العطور، ويمكّن متاجر العطور من فهم عملائها على مستوى غير مسبوق وتقديم توصيات أكثر دقة.',
       support:
         'حوّل تجربة شراء العطر من تجربة عشوائية إلى تجربة دقيقة، شخصية، ومبنية على فهم عميق لكل عميل.',
-      trust: 'تقنية متقدمة تستخدمها متاجر العطور الرائدة لتقديم تجربة استثنائية لعملائها.',
+      trust:
+        'أول نظام في العالم يستخدم الذكاء العصبي لتحليل استجابة الدماغ واقتراح العطر المثالي بدقة علمية خلال ثوانٍ.\nوأول نظام في العالم يختار عطرك باستخدام إشارات دماغك.',
       ctaPrimary: 'اطلب عرض تجريبي',
       ctaSecondary: 'اكتشف كيف يعمل'
     },
@@ -308,7 +309,8 @@ export const siteContent: Record<Locale, SiteContent> = {
         'Aatheer is an intelligent fragrance recommendation system that redefines in-store discovery through deeper customer understanding and precise matching.',
       support:
         'Turn fragrance shopping from random trial-and-error into a precise, personal, insight-driven experience.',
-      trust: 'Advanced technology used by leading fragrance stores to deliver exceptional customer journeys.',
+      trust:
+        'The world’s first system to use neuro-intelligence to analyze brain response and suggest the ideal fragrance with scientific precision in seconds.\nThe world’s first system that selects your fragrance using your brain signals.',
       ctaPrimary: 'Request Demo',
       ctaSecondary: 'Discover How It Works'
     },

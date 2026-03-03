@@ -11,6 +11,10 @@ import { withBasePath } from '@/lib/with-base-path';
 export default function Hero() {
   const { content, isArabic } = useSiteLocale();
   const [imageSrc, setImageSrc] = useState(withBasePath('/images/hero-luxury.jpg'));
+  const trustLines = content.hero.trust
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
 
   return (
     <section id="home" className="relative pt-32 sm:pt-40">
@@ -49,7 +53,16 @@ export default function Hero() {
               </Link>
             </div>
 
-            <p className="text-sm text-cyan-100/80">{content.hero.trust}</p>
+            <div className="glass rounded-2xl p-4">
+              <ul className="space-y-2 text-sm text-cyan-100/85">
+                {trustLines.map((line) => (
+                  <li key={line} className="flex items-start gap-2 leading-relaxed">
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
 
           <motion.div
